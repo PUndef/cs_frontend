@@ -1,0 +1,1 @@
+require('./2-lesson/1-task/index');

@@ -14,3 +14,11 @@
 - _[Системы счисления с нуля](https://www.youtube.com/watch?v=kG_ipMygRUc)_
 
 **[Читать подробнее](/1-lesson/README.md)**
+
+#### Урок 2. Процессор и память. Адресация памяти и разрядность процессора. Кэш-память. Классификация вычислительных систем.
+
+- _[Как работает память компьютера](https://www.youtube.com/watch?v=Wh22_O8jXVQ)_
+- _[История одного килобайта](https://www.youtube.com/watch?v=6n8gALZzBx4)_
+- _[Как работает кэш процессора](https://www.youtube.com/watch?v=7n_8cOBpQrg)_
+
+**[Читать подробнее](/2-lesson/README.md)**
