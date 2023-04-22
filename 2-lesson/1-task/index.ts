@@ -2,6 +2,27 @@ import { renderGrayscale } from "./grayscale";
 import { renderInverse } from "./inverse";
 import { uploadImage } from "./upload";
 
+// Uint8ClampedArray !!!!
+
+// | 255 | 45 | 0   | 1  |
+// | 245 | 32 | 178 | 11 |
+// Use Matrix instead data[i] = 255 - data[i];
+// columnNumber = 3
+// Math.floor(8 / columnNumber) + 8 % columnNumber
+// class Matrix {
+//   buffer;
+
+//   constructor(x, y) {
+//     this.buffer = new Uint8ClampedArray(x * y);
+//   }
+
+//   get(x, y) {
+//     this.buffer[Math.floor(y / x) + y % x]
+//   }
+// }
+// Inversed 157 ^ 255 = 255 - 157
+// Фильтр Ланцоша (сглаживание и другие, хорошая оптимизация)
+
 const canvas = <HTMLCanvasElement>document.getElementById('original');
 const modifiedCanvas = <HTMLCanvasElement>document.getElementById('modified');
 const uploadInput = <HTMLInputElement>document.getElementById('upload-image');

@@ -1,6 +1,6 @@
-type BinaryValue = 0 | 1;
+export type BinaryValue = 0 | 1;
 
-const toBinary = (number: number) => (number).toString(2)
+const toBinary = (number: number) => (number).toString(2).padStart(8, '0');
 
 export const createBitFactory = function(arr: Uint8Array) {
   const bytes: Uint8Array = arr;
