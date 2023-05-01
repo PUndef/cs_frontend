@@ -2,8 +2,10 @@ export type BinaryValue = 0 | 1;
 
 const toBinary = (number: number) => (number).toString(2).padStart(8, '0');
 
-export const createBitFactory = function(arr: Uint8Array) {
-  const bytes: Uint8Array = arr;
+type UintArray = Uint8Array | Uint16Array
+
+export const createBitFactory = function(arr: UintArray) {
+  const bytes: UintArray = arr;
 
   const _validate = (byteIndex: number, bitIndex: number) => {
     if (byteIndex > bytes.length) {

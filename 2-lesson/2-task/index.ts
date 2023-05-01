@@ -1,1 +1,1 @@
-export {encode} from './encode'
+export {encode} from './encode-decode'

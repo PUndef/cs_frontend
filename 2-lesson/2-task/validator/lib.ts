@@ -1,5 +1,5 @@
-export const getType = (value: unknown) => {
-  return typeof value === 'string' ? 'ascii' : typeof value;
+export const getType = (value: unknown): 'string' | 'boolean' | 'number' => {
+  return typeof value as 'string' | 'boolean' | 'number';
 }
 
 export const validateNumber = (value: number, bitQty: number): boolean => {

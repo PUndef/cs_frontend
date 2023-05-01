@@ -16,7 +16,7 @@ export const _validate = (data: Data, schema: Schema) => {
       throw new Error(ERROR_MESSAGES.MAX_BITS);
     }
 
-    if (schemaType !== dataType) {
+    if (schemaType !== dataType && dataType !== 'string') {
       throw new Error(ERROR_MESSAGES.TYPE_IS_INCOMPATIBLE(`${dataValue}`, schemaType));
     }
 
@@ -24,7 +24,7 @@ export const _validate = (data: Data, schema: Schema) => {
       throw new Error(ERROR_MESSAGES.INVALID_NUMBER)
     }
 
-    if (dataType === 'ascii') {
+    if (dataType === 'string' && schemaType === 'ascii') {
       const multipleOf8Bits = schemaBits % 8 === 0
       if (!multipleOf8Bits) {
         throw new Error(ERROR_MESSAGES.ASCII_MULTIPLE_8_BITS)
