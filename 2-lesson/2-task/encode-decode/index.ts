@@ -68,6 +68,7 @@ export const decode = (buffer: ArrayBuffer, schemaArg: Schema) => {
 
   const res: Data = []
   offsets.forEach(({size, offset, index, type, partial}) => {
+    // TODO fix ts-ignore
     // @ts-ignore
     const bytes = (buffer[index] & createMask(size, offset)) >> offset;
     switch (type) {
@@ -87,7 +88,6 @@ export const decode = (buffer: ArrayBuffer, schemaArg: Schema) => {
         break
       case 'utf16':
         const char16 = String.fromCharCode(bytes)
-        console.log('char16',);
         if (partial) {
           res[res.length - 1] += char16
         } else {
@@ -112,4 +112,4 @@ const DEFAULT_SCHEMA: Schema = [
   [32, 'utf16'],
 ];
 
-console.log(decode(encode(DATA, DEFAULT_SCHEMA), DEFAULT_SCHEMA));
+// console.log(decode(encode(DATA, DEFAULT_SCHEMA), DEFAULT_SCHEMA));

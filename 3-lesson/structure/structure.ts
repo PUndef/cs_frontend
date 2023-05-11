@@ -1,15 +1,11 @@
+import { normalizeSchema } from "2-lesson/2-task/encode-decode/normalize-schema";
+import { NormalizedSchema } from "2-lesson/2-task/types";
+
 type SupportedEncodeKey = 'utf16' | 'u16'
 export type Schema = [string, SupportedEncodeKey, number?][]
 
 // Какое кол-во символов выделять по дефолту, если значение не указано
 const DEFAULT_MAX = 1;
-
-export type NormalizedSchema = {
-  key: string;
-  size: number;
-  type: string;
-  partial: boolean;
-}[]
 
 // Schema example
 // [
@@ -29,24 +25,29 @@ export type NormalizedSchema = {
 //    ...
 // ]
 
-const normalizeSchema = (schema: Schema) => {
-  return schema.flatMap(([key, type, max]) => {
-    let size = (max || DEFAULT_MAX) * 8
-    if (type === 'utf16' || type === 'u16') {
-      let size = (max || DEFAULT_MAX) * 16
-      const res = new Array(size / 8).fill({key, size, type, partial: true})
-      return res
-    }
+const normalizeStructure = (schema: Schema) => {
+  // [number, SupportedType][];
+  return normalizeSchema(schema.map(([_, type, symbols]) => [(symbols || 1) * 16, type]));
+  // return schema.flatMap(([key, type, max]) => {
+  //   let size = (max || DEFAULT_MAX) * 8
+  //   if (type === 'utf16' || type === 'u16') {
+  //     let size = (max || DEFAULT_MAX) * 16
+  //     const res = new Array(size / 8).fill({key, size, type, partial: true})
+  //     return res
+  //   }
 
-    return {size, type, partial: false}
-  })
+  //   return {size, type, partial: false}
+  // })
 }
 
 export class Structure {
-  _schema: Schema = []
+  _schema: NormalizedSchema = []
 
   constructor(schema: Schema) {
-    this._schema = schema;
+    this._schema = normalizeStructure(schema);
+    const normalizedSchema = normalizeStructure(schema);
+    // console.log('normalizedSchema', normalizedSchema);
+
   }
 
   get(key: string) {
@@ -64,13 +65,10 @@ const schema: Schema = [
   ['age', 'u16'] // uint16
 ]
 
-const normalizedSchema = normalizeSchema(schema)
-console.log('normalizedSchema', normalizedSchema);
-
 const jackBlack = new Structure(schema);
 
 jackBlack.set('name', 'Jack');
 jackBlack.set('lastName', 'Black');
 jackBlack.set('age', 53);
 
-console.log(jackBlack.get('name')); // 'Jack'
+// console.log(jackBlack.get('name')); // 'Jack'

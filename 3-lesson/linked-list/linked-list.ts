@@ -1,4 +1,4 @@
-type NodeType = {
+export type NodeType = {
   first?: NodeType | undefined;
   last?: NodeType | undefined;
   next?: NodeType | undefined;
@@ -20,13 +20,22 @@ class Node implements NodeType {
   }
 }
 
-interface LinkedListType {
+export interface LinkedListType {
   first: NodeType | undefined;
   last: NodeType | undefined;
 
   add(value: any): void;
+
+  pushRight(value: any): NodeType;
+
+  pushLeft(value: any): NodeType;
+
+  removeLeft(): NodeType | undefined;
+
+  removeRight(): NodeType | undefined;
+
   [Symbol.iterator]: () => {
-    next: () => ({value: any | undefined, done: boolean}),
+    next: () => ({value?: any | undefined, done: boolean}),
   }
 }
 
@@ -40,8 +49,13 @@ export class LinkedList implements LinkedListType {
   constructor() {}
 
   add(value: any) {
+    this.pushRight(value);
+  }
+
+  pushRight(value: any) {
     const prevLast = this.last;
     const newNode = new Node({value, prev: prevLast})
+
     if (!this.first) {
       this.first = newNode
     }
@@ -49,7 +63,59 @@ export class LinkedList implements LinkedListType {
     if (prevLast) {
       prevLast.next = newNode
     }
+
     this.last = newNode
+
+    return newNode;
+  }
+
+  pushLeft(value: any) {
+    const prevFirst = this.first;
+    const newNode = new Node({value, next: prevFirst})
+
+    if (!this.last) {
+      this.last = newNode
+    }
+
+    if (prevFirst) {
+      prevFirst.prev = newNode
+    }
+
+    this.first = newNode
+
+    return newNode;
+  }
+
+  removeLeft() {
+    const prevFirst = {...this.first};
+    const newFirst = prevFirst?.next;
+
+    if (newFirst) {
+      newFirst.prev = undefined;
+      this.first = newFirst;
+    }
+    if (!prevFirst.next && !prevFirst.prev) {
+      this.first = undefined;
+      this.last = undefined;
+    }
+
+    return prevFirst.value;
+  }
+
+  removeRight() {
+    const prevLast = {...this.last};
+    const newLast = prevLast?.prev;
+
+    if (newLast) {
+      newLast.next = undefined;
+      this.last = newLast;
+    }
+    if (!prevLast.next && !prevLast.prev) {
+      this.first = undefined;
+      this.last = undefined;
+    }
+
+    return prevLast.value;
   }
 
   [Symbol.iterator]() {
@@ -58,15 +124,13 @@ export class LinkedList implements LinkedListType {
       next: function() {
         if (_isFirstIterator) {
           _isFirstIterator = false
-          _curIterator = first
-          return {value: _curIterator?.value, done: false}
+          _curIterator = {next: first}
         }
         if (_curIterator?.next) {
           _curIterator = _curIterator.next
-        } else {
-          return {value: undefined, done: true}
+          return {value: _curIterator?.value, done: false}
         }
-        return {value: _curIterator?.value, done: false}
+        return {done: true}
       },
     };
   };
