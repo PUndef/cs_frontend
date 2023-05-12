@@ -15,14 +15,18 @@ describe('4 lesson is correct', () => {
   });
   test("Stack error handler work correctly", () => {
     const stack = new Stack(Int32Array, 2);
+
     stack.push(10);
     stack.push(11);
-
     const errorFn1 = () => stack.push(12);
     expect(errorFn1).toThrow(new Error(ERROR_MESSAGES.STACK_OVERFLOW));
+
     stack.pop();
     stack.pop();
     const errorFn2 = () => stack.pop();
     expect(errorFn2).toThrow(new Error(ERROR_MESSAGES.STACK_IS_EMPTY));
+
+    const errorFn3 = () => stack.push(4294967296);
+    expect(errorFn3).toThrow(new Error(ERROR_MESSAGES.TOO_LARGE_VALUE));
   });
 })

@@ -1,6 +1,7 @@
 import { ERROR_MESSAGES } from "../constants";
 
 export class Stack {
+  maxValue;
   maxSize;
   stackArr;
   top;
@@ -9,6 +10,7 @@ export class Stack {
     this.stackArr = new ArrayConstructor(maxSize);
     this.maxSize = maxSize;
     this.top = -1;
+    this.maxValue = 2 ** (ArrayConstructor.BYTES_PER_ELEMENT * 8) - 1;
   }
 
   get isFull() {
@@ -22,6 +24,9 @@ export class Stack {
   push(value: number) {
     if (this.isFull) {
       throw new Error(ERROR_MESSAGES.STACK_OVERFLOW)
+    }
+    if (value > this.maxValue) {
+      throw new Error(ERROR_MESSAGES.TOO_LARGE_VALUE)
     }
     const cursor = ++this.top
     this.stackArr[cursor] = value
