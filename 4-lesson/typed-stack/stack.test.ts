@@ -1,9 +1,9 @@
 import { ERROR_MESSAGES } from "../constants";
-import { Stack } from ".";
+import { TypedStack } from ".";
 
 describe('4 lesson is correct', () => {
   test("Stack work correctly", () => {
-    const stack = new Stack(Int32Array, 10);
+    const stack = new TypedStack(Int32Array, 10);
     stack.push(10);
     stack.push(11);
     stack.push(12);
@@ -14,7 +14,7 @@ describe('4 lesson is correct', () => {
     expect(stack.pop()).toBe(10);
   });
   test("Stack error handler work correctly", () => {
-    const stack = new Stack(Int32Array, 2);
+    const stack = new TypedStack(Int32Array, 2);
 
     stack.push(10);
     stack.push(11);

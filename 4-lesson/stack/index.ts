@@ -1,47 +1,50 @@
-import { ERROR_MESSAGES } from "../constants";
+export type StackValueDefaultType = string | number;
 
-export class Stack {
-  maxValue;
-  maxSize;
+export interface StackI<StackValue> {
+  stackArr: Array<StackValue>;
+  push(value: StackValue): void;
+  pop(): StackValue;
+  head: StackValue;
+  length: number;
+}
+
+export class Stack<StackValue = StackValueDefaultType> implements StackI<StackValue> {
   stackArr;
   top;
 
-  constructor(ArrayConstructor: IntArrayConstructor, maxSize: number) {
-    this.stackArr = new ArrayConstructor(maxSize);
-    this.maxSize = maxSize;
+  constructor() {
+    this.stackArr = new Array();
     this.top = -1;
-    this.maxValue = 2 ** (ArrayConstructor.BYTES_PER_ELEMENT * 8) - 1;
   }
 
-  get isFull() {
-    return this.top === this.maxSize - 1;
+  push(value: StackValue) {
+    const cursor = ++this.top
+    this.stackArr[cursor] = value
+  }
+
+  pop() {
+    const result: StackValue = this.stackArr[this.top];
+    --this.top;
+    return result
+  }
+
+  get head(): StackValue {
+    return this.stackArr[this.top]
+  }
+
+  get length(): number {
+    return this.top + 1
   }
 
   get isEmpty() {
     return this.top === -1;
   }
 
-  push(value: number) {
-    if (this.isFull) {
-      throw new Error(ERROR_MESSAGES.STACK_OVERFLOW)
-    }
-    if (value > this.maxValue) {
-      throw new Error(ERROR_MESSAGES.TOO_LARGE_VALUE)
-    }
-    const cursor = ++this.top
-    this.stackArr[cursor] = value
-  }
+  *[Symbol.iterator]() {
+    let cursor = this.top;
 
-  pop() {
-    if (this.isEmpty) {
-      throw new Error(ERROR_MESSAGES.STACK_IS_EMPTY)
+    while (cursor >= 0) {
+      yield this.stackArr[cursor--]
     }
-    const result = this.stackArr[this.top];
-    --this.top;
-    return result
-  }
-
-  get head() {
-    return this.stackArr[this.top]
   }
 }

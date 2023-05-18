@@ -1,0 +1,5 @@
+export {Dequeue} from './dequeue'
+export {Queue} from './queue'
+export type {StackI} from './stack'
+export {Stack} from './stack'
+export {TypedStack} from './typed-stack'
