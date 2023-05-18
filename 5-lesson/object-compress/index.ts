@@ -41,48 +41,35 @@ export class Collapse {
     }, {})
   }
 
-  #flatObjStack(input: CollapseInput): object {
-    const result: Record<string, string | number> = {}
-    const stack = new Stack<CollapseInput>();
+  #flatObjStack(input: Record<string, unknown>): object {
+    const res: Record<string, string | number> = {}
+    const stack = new Stack<any>();
 
-    stack.push(input)
+    stack.push([Object.entries(input).values(), ''])
 
-    // while(!stack.isEmpty) {
-    //   const value = stack.pop();
+    while(!stack.isEmpty) {
+      const [cursor, path] = stack.pop();
 
-    //   if (isObject(value)) {
+      for (const [key, value] of cursor) {
+        const newPath = path !== '' ? `${path}.${key}` : key
+        if (value !== null && typeof value === 'object') {
+          stack.push([cursor, path]);
+          stack.push([Object.entries(value).values(), newPath]);
+          break;
+        } else {
+          res[newPath] = value
+        }
+      }
+    }
 
-    //   }
-
-    //   console.log('stack:', ...stack);
-    //   stack.pop()
-    // }
-
-    // console.log('RESULT:', result);
-
-    return result;
+    return res;
   }
 
   recursive(obj: CollapseInput) {
     return this.#flatObjRecursive(obj)
   }
 
-  stack(obj: CollapseInput) {
+  stack(obj: Record<string, unknown>) {
     return this.#flatObjStack(obj)
   }
 }
-
-const collapse = new Collapse()
-const test = {
-  test1: {
-    a: 1
-  }
-  // a: {
-  //   b: [1, 2],
-  //   '': {c: 2}
-  // }
-};
-
-console.log(
-  JSON.stringify(collapse.stack(test))
-)
