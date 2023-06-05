@@ -5,3 +5,4 @@ import './4-lesson/queue/index';
 import './5-lesson';
 
 import './6-lesson';
+import './8-lesson';

@@ -69,15 +69,15 @@ vec.push(1);
 vec.push(1);
 vec.push(1);
 
-console.log(vec.getBuffer());
+// console.log(vec.getBuffer());
 
-console.log(vec.get(1));
-console.log(vec.get(2));
+// console.log(vec.get(1));
+// console.log(vec.get(2));
 
 vec.push(0);
 vec.push(1);
 
-console.log(vec.getBuffer());
+// console.log(vec.getBuffer());
 
-console.log(vec.get(8));
-console.log(vec.get(9));
+// console.log(vec.get(8));
+// console.log(vec.get(9));

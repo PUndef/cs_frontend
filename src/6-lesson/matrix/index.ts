@@ -65,4 +65,4 @@ m.set({x: 1, y: 0, z: 1}, 6);
 m.set({x: 0, y: 1, z: 1}, 7);
 m.set({x: 1, y: 1, z: 1}, 8);
 
-console.log(...m);
+// console.log(...m);

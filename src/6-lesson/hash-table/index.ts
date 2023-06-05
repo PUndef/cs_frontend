@@ -22,18 +22,18 @@ Object.defineProperty(Object.prototype, getHashCode, {
   }
 })
 
-export class HashTable {
-  #buffer;
-  #capacity;
+// export class HashTable {
+//   #buffer;
+//   #capacity;
 
-  #hasher;
+//   #hasher;
 
-  constructor(capacity: number = 31, Hasher: HasherT) {
-    this.#hasher = new Hasher(capacity);
-    this.#capacity = capacity;
-    this.#buffer = new Array(capacity).fill(null);
-  }
-}
+//   constructor(capacity: number = 31, Hasher: HasherT) {
+//     this.#hasher = new Hasher(capacity);
+//     this.#capacity = capacity;
+//     this.#buffer = new Array(capacity).fill(null);
+//   }
+// }
 
 type HasherT = {
 
@@ -85,6 +85,6 @@ class Hasher implements HasherT {
 
 const h = new Hasher(31)
 
-console.log(h.hash(100));
-console.log(h.hash('f1'));
-console.log(h.hash({}));
+// console.log(h.hash(100));
+// console.log(h.hash('f1'));
+// console.log(h.hash({}));
