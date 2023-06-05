@@ -1,5 +1,5 @@
-import { normalizeSchema } from "2-lesson/2-task/encode-decode/normalize-schema";
-import { NormalizedSchema } from "2-lesson/2-task/types";
+import { normalizeSchema } from "../../2-lesson/2-task/encode-decode/normalize-schema";
+import { NormalizedSchema } from "../../2-lesson/2-task/types";
 
 type SupportedEncodeKey = 'utf16' | 'u16'
 export type Schema = [string, SupportedEncodeKey, number?][]

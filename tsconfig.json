@@ -13,8 +13,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "baseUrl": ".",
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "lib": ["es6", "dom"]
   },
   "compileOnSave": true,
-  "include": ["."]
+  "include": ["./src"]
 }

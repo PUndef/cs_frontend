@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-  entry: "./index.ts",
+  entry: "./src/index.ts",
   module: {
     rules: [
       {
@@ -24,7 +24,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "2 lesson",
-      template: "2-lesson/1-task/index.html"
+      template: "src/2-lesson/1-task/index.html"
     })
     // new CopyPlugin({
     //   patterns: [{ from: "2-lesson/1-task/assets", to: "assets" }]
